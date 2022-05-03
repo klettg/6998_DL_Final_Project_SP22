@@ -1,9 +1,13 @@
-#This is a sample header
-Ethereum Price Prediction
+# Ethereum Price Prediction
 
-Griffin Klett - gk2591@columbia.edu
-Nathan Cuervos - njc2150@columbia.edu
+<br/>
 
-Professor Parijat Dube
-Deep Learning and Systems Performance
+## Nathan Cuervos, Griffin Klett
+
+<br/>
+### njc2150@columbia.edu, gk2591@columbia.edu
+
+<br/>
+Professor Parijat Dube\
+Deep Learning and Systems Performance\
 COMS 6998, Spring 2022
