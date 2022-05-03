@@ -2,7 +2,7 @@
 
 <br/>
 
-## Nathan Cuervos, Griffin Klett
+## Nathan Cuervas, Griffin Klett
 
 <br/>
 ### njc2150@columbia.edu, gk2591@columbia.edu
