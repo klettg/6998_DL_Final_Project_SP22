@@ -21,10 +21,13 @@ import argparse, os
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model', type=str, required=True, help='CNN or DNN')
-parser.add_argument('--m', type=int, required=True, help='num days to look back')
+parser.add_argument('--m', type=int, required=False, default=30, help='num days to look back')
+parser.add_argument('--epochs', type=int, required=False, default=100, help='num epochs to run')
+parser.add_argument('--simulate', type=int, required=False, default=0, help='number of times to run our trading sim')
 args = parser.parse_args()
 print(f'model chosen is: {args.model}')
 print(f'm = {args.m}')
+print(f'running for {args.epochs} epochs')
 
 
 #load and transform data
@@ -47,7 +50,7 @@ df.drop(df.tail(1).index,inplace=True)
 
 m = args.m
 batch_size = 64
-epochs = 100
+epochs = args.epochs
 
 #split into test, train 
 
@@ -148,3 +151,49 @@ else:
   exit(1)
 
 hist = model.fit(train_x_np, train_y_np, epochs=epochs, batch_size=batch_size, validation_data=[test_x_np,test_y_np])
+
+# Evaluate the model on the test data using `evaluate`
+print("\nEvaluate on test data...")
+results = model.evaluate(test_x_np, test_y_np, verbose=False)
+print(f"test loss, test acc: {results}\n")
+
+if args.simulate > 0:
+  #Create profitability bot: 
+  tested_vals = []
+  num_tests = args.simulate
+
+  for j in range(num_tests):
+    val = 10000
+    correct = 0
+    incorrect = 0
+    rows, columns, num_features = test_x_np.shape
+    predicted_buy = 0
+    print(f'running simulation {j+1}/{num_tests}...')
+    for i in range(rows):
+      rand_index = random.randint(0, rows -1)
+      i = rand_index
+      bet = val * .05
+      sample = np.array(test_x_np[i])
+      sample = np.reshape(sample,(1,columns,num_features))
+      true_y = test_y_np[i]
+      prediction = model.predict(sample, verbose=False)
+      #print(prediction)
+      predicted_binary = 1 if prediction > 0.5 else 0
+      if predicted_binary == 1: 
+        predicted_buy = predicted_buy + 1
+      pred_correct = 1 if predicted_binary == true_y else 0
+      if pred_correct == 1:
+        correct = correct + 1
+        val = val + bet
+
+      else: 
+        incorrect = incorrect + 1
+        val = val - bet
+    print(f'bought in {predicted_buy}/{rows} days') 
+    tested_vals.append(val)
+
+  print(f'\nSimulation overall accuracy is {correct / (correct + incorrect)}') 
+  from statistics import mean
+  print("\naverage ending investment: ")
+  print(mean(tested_vals))
+
