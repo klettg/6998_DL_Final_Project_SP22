@@ -133,6 +133,7 @@ test_y_np = np.array(test_values_y)
 num_features = len(df.columns)
 
 if args.model == 'CNN':
+  # CNN model was chosen
   model = Sequential()
   model.add(Input(shape=(m, num_features - 1, 1)))
   model.add(Conv2D(filters=36, kernel_size=(3, 18), padding='same', activation='relu'))
@@ -140,6 +141,7 @@ if args.model == 'CNN':
   model.add(Dense(1, activation='sigmoid'))
   model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 elif args.model == 'DNN':
+  # DNN model was chosen
   model = Sequential()
   model.add(Flatten(input_shape=(m, num_features - 1, 1)))
   model.add(Dense(8*m , activation='relu'))
@@ -147,6 +149,7 @@ elif args.model == 'DNN':
   model.add(Dense(1, activation='sigmoid'))
   model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 else:
+  # model not recognized
   print(f'invalid model {args.model}\nexiting...')
   exit(1)
 
