@@ -103,3 +103,19 @@ For example, unlike previous research on Bitcoin, our performance did not depend
 
 **experiment results/plots**
 
+Validation accuracy for $m=30$. We notice that validation accuracy does not meaningfully improve over epoch, regardless of model architecture.
+
+<img width="437" alt="image" src="https://user-images.githubusercontent.com/42158119/167318187-c8104796-143e-45d5-9fa0-818bee191662.png">
+
+Contrary to Ji et Al's research, there was no significant improvement when adjusting the value of $m$ from $10$ to $70$. 
+
+<img width="761" alt="image" src="https://user-images.githubusercontent.com/42158119/167318237-cec47e29-ae9f-4e3e-9f4a-1be31c46fe75.png">
+
+CNN and DNN training and validation accuracies amongst several values of $m$. There is impovement in training accuracy per epoch; however the same is not seen for validation accuracy. This is due to our model's not being able to generalize effectively. 
+
+<img width="900" alt="image" src="https://user-images.githubusercontent.com/42158119/167318281-931a41fb-50be-44fb-af69-dfee99561d52.png">
+
+The results of of trading algorithm using our DNN and CNN models after given an initial investment of $10,000 and running on all of the uneen days. The results were averaged over 5 runs. 
+
+<img width="669" alt="image" src="https://user-images.githubusercontent.com/42158119/167318350-7b600017-8b6a-4e74-9477-ff4abb56d30a.png">
+
